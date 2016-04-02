@@ -1,110 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
 
-        <title>ELECCIONES2016PERU.COM</title>
+<head>
 
-        <!-- Bootstrap core CSS -->
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <title>Elecciones2016Peru.com - Simulación de votaciones</title>
 
-        <!-- Custom styles for this template -->
-        <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-        <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
 
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-        <style type="text/css">
-            .dangerselected{
-                border: solid 1px red;
-            }
-        </style>
-    </head>
+        body {
+            padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+        }
 
-  <body>
+        .slide-image {
+            width: 100%;
+        }
 
-    <div class="site-wrapper">
+        .carousel-holder {
+            margin-bottom: 30px;
+        }
 
-      <div class="site-wrapper-inner">
+        .carousel-control,
+        .item {
+            border-radius: 4px;
+        }
 
-        <div class="cover-container">
+        .caption {
+            height: 130px;
+            overflow: hidden;
+        }
 
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">Elecciones2016Perú</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Home</a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
+        .caption h4 {
+            white-space: nowrap;
+        }
 
-          <div class="ads">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- cabecera_elecciones2016peru -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-1998972999612574"
-                 data-ad-slot="8081696283"
-                 data-ad-format="auto"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-          </div>
+        .thumbnail img {
+            width: 100%;
+        }
 
-          <div class="row">
-            @foreach($candidates as $data)
-                <div class="col-md-3 p-x-2 candidato" data-id="{{ $data->id }}" style="background-color: #fff; display: block; ">
-                <div class="col-md-4">                    
-                </div>
-                <div class="col-md-8">
-                    <span>{{ $data->nombres }}</span>
-                </div>
-                </div>
-            @endforeach
+        .ratings {
+            padding-right: 10px;
+            padding-left: 10px;
+            color: #d17581;
+        }
 
-          </div>
+        .thumbnail {
+            padding: 0;
+        }
 
-          <div class="row">
-                <div class="bs-example" data-example-id="striped-table"> 
-                    <table class="table table-striped"> 
-                        <thead> 
-                            <tr> 
-                                <th>Candidato</th> 
-                                <th>Votos</th> 
-                            </tr> 
-                        </thead> 
-                        <tbody id="resultadosVotos"></tbody> 
-                    </table> 
-                </div>
-          </div>
+        .thumbnail .caption-full {
+            padding: 9px;
+            color: #333;
+        }
 
-        <div class="mastfoot">
-            <div class="inner">
-                <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+        footer {
+            margin: 50px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">ELECCIONES 2016 PERÚ</a>
             </div>
         </div>
+        <!-- /.container -->
+    </nav>
 
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+           <div class="col-md-12">
+               <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- cabecera_elecciones2016peru -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1998972999612574"
+                     data-ad-slot="8081696283"
+                     data-ad-format="auto"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+           </div> 
         </div>
 
-      </div>
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="row">
+                    @foreach($candidates as $data)
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                
+                                <h4><a href="#" class="candidato" data-id="{{ $data->id }}">{{ $data->nombres }}</a></h4>
+                                <p>Frente Amplio</p>
+                                <button type="button" class="btn btn-primary pull-right candidato" data-id="{{ $data->id }}">Votar</button>
+                                
+                                <div class="ratings pull-right">
+                                    <p class="pull-right">15 votos</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    @endforeach
+
+                </div>
+
+            </div>
+        </div>
     </div>
 
+    <!-- /.container -->
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>elecciones2016peru.com - Elecciones Presidenciales Perú</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- /.container -->
+    
+    <!-- /.model -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -112,66 +162,51 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabel">Tu voto importa</h4>
           </div>
           <div class="modal-body">
-            <div class="row">
-                
-                <div class="bg-success">Gracias por votar, esta es una simulación de las elecciones del 10 de Abril.</div>
-                <div class="bg-info">Usted ya ha votado, lo sentimos no podemos procesar su voto.</div>
-                <span class="bg-danger"> Por favor ingrese un DNI correcto.</span>
+            <div class="col-md-12">
+                <div class="row">
+                    
+                    <div><p class="bg-success">Gracias por votar, esta es una simulación de las elecciones del 10 de Abril.</p></div>
+                    <div><p class="bg-info">Usted ya ha votado, lo sentimos no podemos procesar su voto.</p></div>
+                    <span><p class="bg-danger"> Por favor ingrese un DNI correcto.</p></span>
 
-              <label>DNI:</label>
-              <input class="form-control dni" name="dni" type="text" required="required">
-            </div>
+                  <label>DNI:</label>
+                  <input class="form-control dni" name="dni" type="text" required="required">
+                </div>
 
-            <div class="row">
-                <label>Seleccione un departamento:</label>
-                <select class="form-control distrito" required="required">
-                    <option value="0">  Seleccione un departamento</option>
-                    @foreach($departamentos as $data)
-                        <option value="{{ $data->id }}"> {{ $data->nombre }} </option>
-                    @endforeach
-                </select>
-            </div>
-          </div>
+                <div class="row">
+                    <label>Seleccione un departamento:</label>
+                    <select class="form-control distrito" required="required">
+                        <option value="0">  Seleccione un departamento</option>
+                        @foreach($departamentos as $data)
+                            <option value="{{ $data->id }}"> {{ $data->nombre }} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>    
+          </div><p><hr><br><br></p>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary votarbtn">VOTAR</button>
           </div>
         </div>
       </div>
     </div>
+    <!-- /.model -->
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
     <script src="{{ asset('assets/js/jquery.numeric.js') }}"></script>
     
     <script type="text/javascript">
         $(document).ready(function(){
-            //CONNECTIONS
-            $.ajax({
-                type : 'GET',
-                url: "{{ route('votacion::result') }}",
-                cache: false,
-                success: function(r)
-                {
-                    $('#resultadosVotos').html('');
-                    if(r.voto.length > 0){
-                        $.each(r.voto, function(i){
-                            box = '<tr><td>'+ r['voto'][i].candidato +'</td><td>'+ r['voto'][i].candidato_id +'</td></tr>';
-                        });                               
-
-                        $('#resultadosVotos').append(box);
-                        
-                    }     
-                }
-            });
 
             $('.bg-danger').hide();
             $('.bg-success').hide();
@@ -230,5 +265,6 @@
             
         });
     </script>
-  </body>
+</body>
+
 </html>
