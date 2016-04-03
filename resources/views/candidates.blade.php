@@ -67,6 +67,11 @@
             color: #333;
         }
 
+        .selectedPostulante{
+            border: solid 1px green;
+            box-shadow: 0px 0px 10px 0px green;
+        }
+
         footer {
             margin: 50px 0;
         }
@@ -116,15 +121,15 @@
                 <div class="row">
                     @foreach($candidates as $data)
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
+                        <div class="thumbnail" id="block-{{ $data->id }}">
                             <div class="caption">
                                 
-                                <h4><a href="#" class="candidato" data-id="{{ $data->id }}">{{ $data->nombres }}</a></h4>
+                                <h4><a href="#" class="candidato" data-id="{{ $data->id }}"><strong>{{ $data->nombres }}</strong></a></h4>
                                 <p>Frente Amplio</p>
                                 <button type="button" class="btn btn-primary pull-right candidato" data-id="{{ $data->id }}">Votar</button>
                                 
                                 <div class="ratings pull-right">
-                                    <p class="pull-right">15 votos</p>
+                                    <p class="pull-right"><span class="qtyvotos"></span> votos</p>
                                 </div>
                             </div>
                             
@@ -155,7 +160,7 @@
     <!-- /.container -->
     
     <!-- /.model -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -178,7 +183,7 @@
 
                 <div class="row">
                     <label>Seleccione un departamento:</label>
-                    <select class="form-control distrito" required="required">
+                    <select class="form-control departamento" required="required">
                         <option value="0">  Seleccione un departamento</option>
                         @foreach($departamentos as $data)
                             <option value="{{ $data->id }}"> {{ $data->nombre }} </option>
@@ -188,7 +193,8 @@
             </div>    
           </div><p><hr><br><br></p>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary votarbtn">VOTAR</button>
+            <button type="button" class="btn btn-default btn-cerrar-modal" data-dismiss="modal" aria-label="Close">CERRAR</button>
+            <button type="button" class="btn btn-success votarbtn">VOTAR</button>
           </div>
         </div>
       </div>
@@ -215,28 +221,35 @@
 
             $('.candidato').on('click', function(){
 
-                $('#myModal').modal('show');                
+                $('#myModal').modal('show');
+                
                 var candidato = $(this).data("id");
+                $("#block-"+candidato).addClass('selectedPostulante');
+
+                $('#myModal').on('hidden.bs.modal', function () {
+                    
+                    $("#block-"+candidato).removeClass('selectedPostulante');
+                    candidato = '';
+                });
 
                 $('.votarbtn').on('click', function(){
-                    var dni      = $('.dni').val();
-                    var distrito = $( ".distrito option:selected" ).val();
                     
-                    if(distrito == 0 ){
-                        $('.distrito').addClass( "dangerselected" );
+                    if($( ".departamento option:selected" ).val() == '0' ){
+                        $('.departamento').addClass( "dangerselected" );
                     } else {
-                        $('.distrito').removeClass( "dangerselected" );
+                        $('.departamento').removeClass( "dangerselected" );
                     }
 
-                    if( dni.length == 8 ){
+                    if( $('.dni').val().length == 8 ){
 
                         $.ajax({
                             type: "POST",
                             url: "{{ route('votacion::store') }}",
-                            data: { dni: dni, candidato: candidato, distrito: distrito, _token: '{!! csrf_token() !!}'},
+                            data: { dni: $('.dni').val(), candidato: candidato, departamento: $( ".departamento option:selected" ).val(), _token: '{!! csrf_token() !!}'},
                             cache: false,
+                            dataType: 'json',
                               success: function(r)
-                              { 
+                              {
 
                                     $('.bg-danger').hide();
 
@@ -245,6 +258,7 @@
                                         $('.bg-success').show();
                                         $('.bg-info').hide();
                                         console.log('Gracias por votar');
+                                        location.reload();
 
                                     } else {
 
@@ -254,6 +268,8 @@
 
                                     }
 
+                              }, error: function(){
+                                alert('Lo sentimos, ocurrio un error');
                               }
                         });
                     } else { 

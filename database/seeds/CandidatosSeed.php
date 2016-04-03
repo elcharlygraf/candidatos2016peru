@@ -10,7 +10,7 @@ class CandidatosSeed extends Seeder
             DB::table('candidatos')->insert(
             array(
 				array(
-					'nombres' => 'ALAN GABRIEL LUDWIG GARCIA PEREZ',
+					'nombres' => 'ALAN GARCIA PEREZ',
 					'partido' => 'ALIANZA POPULAR'
 					),
 				array(
@@ -18,11 +18,11 @@ class CandidatosSeed extends Seeder
 					'partido' => 'PERU POSIBLE'
 					),
 				array(
-					'nombres' => 'ANTERO FLORES ARAOZ ESPARZA',
+					'nombres' => 'ANTERO FLORES ARAOZ',
 					'partido' => 'PARTIDO POLITICO ORDEN'
 					),
 				array(
-					'nombres' => 'FRANCISCO ERNESTO DIEZ-CANSECO TÁVARA',
+					'nombres' => 'DIEZ-CANSECO TÁVARA',
 					'partido' => 'PERU NACION'
 					),
 				array(
@@ -30,28 +30,28 @@ class CandidatosSeed extends Seeder
 					'partido' => 'DEMOCRACIA DIRECTA'
 					),
 				array(
-					'nombres' => 'ISAAC ALFREDO BARNECHEA GARCIA',
+					'nombres' => 'ALFREDO BARNECHEA GARCIA',
 					'partido' => 'ACCION POPULAR'
 					),
 				array(
-					'nombres' => 'KEIKO SOFIA FUJIMORI HIGUCHI',
+					'nombres' => 'KEIKO FUJIMORI HIGUCHI',
 					'partido' => 'FUERZA POPULAR'
 					),
 				array(
-					'nombres' => 'LUIS FERNANDO OLIVERA VEGA',
+					'nombres' => 'FERNANDO OLIVERA VEGA',
 					'partido' => 'FRENTE ESPERANZA'
 					),
 				array(
-					'nombres' => 'MIGUEL WALTER HILARIO ESCOBAR',
+					'nombres' => 'MIGUEL HILARIO ESCOBAR',
 					'partido' => 'PROGRESANDO PERU'
 					),
 				array(
-					'nombres' => 'PEDRO PABLO KUCZYNSKI GODARD',
+					'nombres' => 'PEDRO PABLO KUCZYNSKI',
 					'partido' => 'PERUANOS POR EL KAMBIO'
 					),
 				array(
-					'nombres' => 'VERONIKA FANNY MENDOZA FRISCH',
-					'partido' => 'EL FRENTE AMPLIO POR JUSTICIA, VIDA Y LIBERTAD'
+					'nombres' => 'VERONIKA MENDOZA',
+					'partido' => 'EL FRENTE AMPLIO'
 					)
             ));
     }
