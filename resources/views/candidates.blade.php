@@ -129,7 +129,7 @@
                             
                             <div class="caption">
                                 
-                                <h4><a href="#" class="candidato" data-id="{{ $data->idcandidato }}"><strong>{{ $data->nombres }}</strong></a></h4>
+                                <h4><a href="#" class="candidato" data-id="{{ $data->idcandidato }}" data-name="{{ $data->nombres }}"><strong>{{ $data->nombres }}</strong></a></h4>
                                 <p>{{ $data->partido }}</p>
                                 <button type="button" class="btn btn-primary pull-right candidato" data-id="{{ $data->idcandidato }}">Votar</button>
                                 
@@ -172,7 +172,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Tu voto importa</h4>
+            <h4 class="modal-title" id="myModalLabel">Vas a votar por: <strong><span id="candidatoModal"></span></strong></h4>
           </div>
           <div class="modal-body">
             <div class="col-md-12">
@@ -184,6 +184,7 @@
 
                   <label>DNI:</label>
                   <input class="form-control dni" name="dni" type="text" required="required">
+                  <input class="form-control" id="idcandidato" type="hidden">
                 </div>
 
                 <div class="row">
@@ -230,6 +231,9 @@
                 
                 var candidato = $(this).data("id");
                 $("#block-"+candidato).addClass('selectedPostulante');
+                
+                $('#candidatoModal').html($(this).data("name"));
+                $('#idcandidato').val($(this).data("id"));
 
                 $('#myModal').on('hidden.bs.modal', function () {
                     
@@ -252,7 +256,7 @@
                             $.ajax({
                                 type: "POST",
                                 url: "{{ route('votacion::store') }}",
-                                data: { dni: $('.dni').val(), candidato: $('.candidato').data("id"), departamento: $( ".departamento option:selected" ).val(), _token: '{!! csrf_token() !!}'},
+                                data: { dni: $('.dni').val(), candidato: $('#idcandidato').val(), departamento: $( ".departamento option:selected" ).val(), _token: '{!! csrf_token() !!}'},
                                 cache: false,
                                 dataType: 'json',
                                   success: function(r)
@@ -282,11 +286,8 @@
                         } else { 
                             $('.bg-danger').show();
                         }
-                    }
-
-                    
+                    }                   
             }); 
-
             
         });
     </script>
