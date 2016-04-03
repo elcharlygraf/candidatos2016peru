@@ -11,7 +11,13 @@ use DB;
 class VotacionesController extends Controller
 {
     public function index(){
-        $candidates     = DB::table('candidatos')->get();
+        $candidates = 
+        DB::table('votaciones')
+            ->select(DB::raw('count(candidato_id) as cantidad'), 'candidatos.id as idcandidato','candidato_id', 'nombres', 'partido', 'logo')
+            ->leftJoin('candidatos', 'candidatos.id', '=', 'votaciones.candidato_id')
+            ->groupBy('candidato_id')
+            ->get(); 
+
         $departamentos  = DB::table('departamentos')->get();
     	return view('candidates', compact('candidates','departamentos'));
     }

@@ -72,6 +72,10 @@
             box-shadow: 0px 0px 10px 0px green;
         }
 
+        .dangerselected{
+            border: solid 2px red;
+        }
+
         footer {
             margin: 50px 0;
         }
@@ -111,7 +115,7 @@
                 <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
-           </div> 
+           </div><hr><br>
         </div>
 
         <div class="row">
@@ -121,15 +125,16 @@
                 <div class="row">
                     @foreach($candidates as $data)
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail" id="block-{{ $data->id }}">
+                        <div class="thumbnail" id="block-{{ $data->idcandidato }}">
+                            
                             <div class="caption">
                                 
-                                <h4><a href="#" class="candidato" data-id="{{ $data->id }}"><strong>{{ $data->nombres }}</strong></a></h4>
-                                <p>Frente Amplio</p>
-                                <button type="button" class="btn btn-primary pull-right candidato" data-id="{{ $data->id }}">Votar</button>
+                                <h4><a href="#" class="candidato" data-id="{{ $data->idcandidato }}"><strong>{{ $data->nombres }}</strong></a></h4>
+                                <p>{{ $data->partido }}</p>
+                                <button type="button" class="btn btn-primary pull-right candidato" data-id="{{ $data->idcandidato }}">Votar</button>
                                 
                                 <div class="ratings pull-right">
-                                    <p class="pull-right"><span class="qtyvotos"></span> votos</p>
+                                    <p class="pull-right"><span class="qtyvotos"></span> {{ $data->cantidad }} votos</p>
                                 </div>
                             </div>
                             
@@ -230,53 +235,57 @@
                     
                     $("#block-"+candidato).removeClass('selectedPostulante');
                     candidato = '';
-                });
+                });                
+            });
 
-                $('.votarbtn').on('click', function(){
+            $('.votarbtn').on('click', function(){
                     
                     if($( ".departamento option:selected" ).val() == '0' ){
+                        
                         $('.departamento').addClass( "dangerselected" );
+
                     } else {
+
                         $('.departamento').removeClass( "dangerselected" );
+
+                        if( $('.dni').val().length == 8 ){
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('votacion::store') }}",
+                                data: { dni: $('.dni').val(), candidato: $('.candidato').data("id"), departamento: $( ".departamento option:selected" ).val(), _token: '{!! csrf_token() !!}'},
+                                cache: false,
+                                dataType: 'json',
+                                  success: function(r)
+                                  {
+
+                                        $('.bg-danger').hide();
+
+                                        if(r['status'] == 0){
+
+                                            $('.bg-success').show();
+                                            $('.bg-info').hide();
+                                            console.log('Gracias por votar');
+                                            location.reload();
+
+                                        } else {
+
+                                            $('.bg-success').hide();
+                                            $('.bg-info').show();
+                                            console.log('Ya votaste y escogiste a ' + r['voto']);
+
+                                        }
+
+                                  }, error: function(){
+                                    alert('Lo sentimos, ocurrio un error');
+                                  }
+                            });
+                        } else { 
+                            $('.bg-danger').show();
+                        }
                     }
 
-                    if( $('.dni').val().length == 8 ){
-
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ route('votacion::store') }}",
-                            data: { dni: $('.dni').val(), candidato: candidato, departamento: $( ".departamento option:selected" ).val(), _token: '{!! csrf_token() !!}'},
-                            cache: false,
-                            dataType: 'json',
-                              success: function(r)
-                              {
-
-                                    $('.bg-danger').hide();
-
-                                    if(r['status'] == 0){
-
-                                        $('.bg-success').show();
-                                        $('.bg-info').hide();
-                                        console.log('Gracias por votar');
-                                        location.reload();
-
-                                    } else {
-
-                                        $('.bg-success').hide();
-                                        $('.bg-info').show();
-                                        console.log('Ya votaste y escogiste a ' + r['voto']);
-
-                                    }
-
-                              }, error: function(){
-                                alert('Lo sentimos, ocurrio un error');
-                              }
-                        });
-                    } else { 
-                        $('.bg-danger').show();
-                    }
-                });  
-            });
+                    
+            }); 
 
             
         });
