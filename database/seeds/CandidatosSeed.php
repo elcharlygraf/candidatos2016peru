@@ -32,7 +32,7 @@ class CandidatosSeed extends Seeder
 			array(
 				'nombres' => 'ALFREDO BARNECHEA G.',
 				'partido' => 'ACCION POPULAR',
-				'logo'	  => 'bernechea.png'
+				'logo'	  => 'barnechea.png'
 				),
 			array(
 				'nombres' => 'KEIKO FUJIMORI H.',
