@@ -48,9 +48,6 @@
             white-space: nowrap;
         }
 
-        .thumbnail img {
-            width: 100%;
-        }
 
         .ratings {
             padding-right: 10px;
@@ -74,6 +71,12 @@
 
         .dangerselected{
             border: solid 2px red;
+        }
+
+        .photo{
+            display: block;
+            width: 90px;
+            padding-right: 10px;
         }
 
         footer {
@@ -128,13 +131,16 @@
                         <div class="thumbnail" id="block-{{ $data->idcandidato }}">
                             
                             <div class="caption">
+                                <div class="pull-left">
+                                    <img src='{{ asset("assets/images/$data->logo") }}' class="photo" alt="">
+                                </div>
                                 
                                 <h4><a href="#" class="candidato" data-id="{{ $data->idcandidato }}" data-name="{{ $data->nombres }}"><strong>{{ $data->nombres }}</strong></a></h4>
                                 <p>{{ $data->partido }}</p>
                                 <button type="button" class="btn btn-primary pull-right candidato" data-id="{{ $data->idcandidato }}">Votar</button>
                                 
                                 <div class="ratings pull-right">
-                                    <p class="pull-right"><span class="qtyvotos"></span> {{ $data->cantidad }} votos</p>
+                                    <p class="pull-right"><strong><span class="qtyvotos"></span> {{ $data->cantidad }} votos</strong></p>
                                 </div>
                             </div>
                             

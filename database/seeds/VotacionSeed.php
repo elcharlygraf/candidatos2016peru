@@ -58,11 +58,6 @@ class VotacionSeed extends Seeder
 				'candidato_id'    => 10,
 				'departamento_id' => 14,
 				'dni'			  => '33333333'
-				),
-			array(
-				'candidato_id'    => 11,
-				'departamento_id' => 14,
-				'dni'			  => '44444444'
 				)
         ));
     }

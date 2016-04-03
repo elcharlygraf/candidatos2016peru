@@ -11,47 +11,53 @@ class CandidatosSeed extends Seeder
         array(
 			array(
 				'nombres' => 'ALAN GARCIA PEREZ',
-				'partido' => 'ALIANZA POPULAR'
+				'partido' => 'ALIANZA POPULAR',
+				'logo'	  => 'alan.png'
 				),
 			array(
-				'nombres' => 'ALEJANDRO TOLEDO MANRIQUE',
-				'partido' => 'PERU POSIBLE'
+				'nombres' => 'ALEJANDRO TOLEDO',
+				'partido' => 'PERU POSIBLE',
+				'logo'	  => 'toledo.png'
 				),
 			array(
 				'nombres' => 'ANTERO FLORES ARAOZ',
-				'partido' => 'PARTIDO POLITICO ORDEN'
+				'partido' => 'PARTIDO POLITICO ORDEN',
+				'logo'	  => 'antero.png'
 				),
 			array(
-				'nombres' => 'DIEZ-CANSECO TÁVARA',
-				'partido' => 'PERU NACION'
+				'nombres' => 'GREGORIO SANTOS G.',
+				'partido' => 'DEMOCRACIA DIRECTA',
+				'logo'	  => 'gregorio.png'
 				),
 			array(
-				'nombres' => 'GREGORIO SANTOS GUERRERO',
-				'partido' => 'DEMOCRACIA DIRECTA'
+				'nombres' => 'ALFREDO BARNECHEA G.',
+				'partido' => 'ACCION POPULAR',
+				'logo'	  => 'bernechea.png'
 				),
 			array(
-				'nombres' => 'ALFREDO BARNECHEA GARCIA',
-				'partido' => 'ACCION POPULAR'
-				),
-			array(
-				'nombres' => 'KEIKO FUJIMORI HIGUCHI',
-				'partido' => 'FUERZA POPULAR'
+				'nombres' => 'KEIKO FUJIMORI H.',
+				'partido' => 'FUERZA POPULAR',
+				'logo'	  => 'keiko.png'
 				),
 			array(
 				'nombres' => 'FERNANDO OLIVERA VEGA',
-				'partido' => 'FRENTE ESPERANZA'
+				'partido' => 'FRENTE ESPERANZA',
+				'logo'	  => 'popi.png'
 				),
 			array(
-				'nombres' => 'MIGUEL HILARIO ESCOBAR',
-				'partido' => 'PROGRESANDO PERU'
+				'nombres' => 'MIGUEL HILARIO E.',
+				'partido' => 'PROGRESANDO PERU',
+				'logo'	  => 'hilario.png'
 				),
 			array(
 				'nombres' => 'PEDRO PABLO KUCZYNSKI',
-				'partido' => 'PERUANOS POR EL KAMBIO'
+				'partido' => 'PERUANOS POR EL KAMBIO',
+				'logo'	  => 'ppk.png'
 				),
 			array(
 				'nombres' => 'VERONIKA MENDOZA',
-				'partido' => 'EL FRENTE AMPLIO'
+				'partido' => 'EL FRENTE AMPLIO',
+				'logo'	  => 'veronika.png'
 				)
         ));
     }
