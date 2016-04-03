@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(DepartamentosSeed::class);
         $this->call(CandidatosSeed::class);
+        $this->call(VotacionSeed::class);
 
         Model::reguard();
     }
